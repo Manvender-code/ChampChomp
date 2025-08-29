@@ -1,7 +1,4 @@
-// Works with your popup.html / popup.css.
-// Shows detected rows and, on "Get Hint", looks up dp.json for win/lose and next move.
-
-// UI nodes
+//nodes
 const rowsView = document.getElementById('rowsView');
 const resultBox = document.getElementById('result');
 const refreshBtn = document.getElementById('refreshBtn');
@@ -9,10 +6,10 @@ const hintBtn = document.getElementById('getHintBtn');
 const manualInput = document.getElementById('manualInput');
 const setManualBtn = document.getElementById('setManualBtn');
 
-let currentBoard = null; // [a,b,c,d]
+let currentBoard = null; 
 let dpTable = null;
 
-// Load DP once
+// Load DP
 async function loadDP() {
     if (dpTable) return dpTable;
     const url = chrome.runtime.getURL('dp.json');
@@ -35,19 +32,18 @@ function arraysEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);
 }
 
+// DP
 async function lookupHint(board) {
     const dp = await loadDP();
     const hit = dp.find(entry => arraysEqual(entry.key, board));
     if (!hit) return null;
-    return hit.value; // {first: "yes"/"no", second: [row,col] or null}
+    return hit.value;
 }
 
-// Normalize to 4 rows, top->bottom, non-decreasing.
-// If user entered fewer than 4 rows, pad leading zeros.
+// Normalize board
 function normalizeBoard(raw) {
     const nums = raw.map(n => Number(n)).filter(n => Number.isFinite(n) && n >= 0);
     if (!nums.length) return null;
-    // Ensure non-decreasing top->bottom; if not, try reversed.
     const nonDec = nums.every((n, i) => i === 0 || n >= nums[i - 1]);
     let rows = nonDec ? nums : nums.slice().reverse();
     rows = rows.slice(0, 4);
@@ -55,9 +51,9 @@ function normalizeBoard(raw) {
     return rows;
 }
 
-// Ask the active tab’s content script to parse
+// Parse board
 function requestParse() {
-    showStatus('', ''); // clear
+    showStatus('', '');
     rowsView.textContent = '…';
     currentBoard = null;
 
@@ -85,7 +81,7 @@ function requestParse() {
     });
 }
 
-// UI events
+// Events
 refreshBtn.addEventListener('click', requestParse);
 
 setManualBtn.addEventListener('click', () => {
@@ -111,12 +107,10 @@ hintBtn.addEventListener('click', async () => {
         return;
     }
     if (hint.first === 'yes') {
-        // next move coordinates are given as e.g. [4,2]; we’ll just show them verbatim.
         showStatus('win', `Winning! Suggested move: ${hint.second ? `[${hint.second.join(', ')}]` : '(any)'}`);
     } else {
         showStatus('lose', 'Losing with best play.');
     }
 });
 
-// Auto-parse on popup open
 requestParse();

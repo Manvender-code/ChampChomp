@@ -9,16 +9,16 @@
 
 <body>
     <header>
-        <div class="title">🏆 ChampChomp</div>
-        <div class="byline">made by Manvender</div>
+        <div class="title">Champ-Chomp</div>
+        <div class="byline"> by Manvender</div>
     </header>
 
     <main>
         <section class="card">
-            <h2>Game Rules (Quick)</h2>
+            <h2>Game Rules</h2>
             <ol>
-                <li>The board is chocolate; the top-left square is poison.</li>
-                <li>When you chomp a block, it and all blocks to its right and below disappear.</li>
+                <li>The board is chocolate; the bottom-left square is poison.</li>
+                <li>When you chomp a block, it and all blocks to its right and above disappear.</li>
                 <li>Whoever is forced to eat the poison loses.</li>
             </ol>
         </section>
@@ -29,17 +29,17 @@
             <div id="rowsView" class="rows-view">—</div>
 
             <div class="button-row">
-                <button id="refreshBtn">↻ Refresh</button>
-                <button id="getHintBtn" class="primary">💡 Get Hint</button>
+                <button id="refreshBtn">Refresh</button>
+                <button id="getHintBtn" class="primary">Get Hint</button>
             </div>
 
             <div id="result" class="result"></div>
 
             <details class="manual">
                 <summary>Board not detected? Enter manually.</summary>
-                <p>Enter lengths from top row to bottom row, space-separated (e.g. <code>3 5 8 8</code>)</p>
+                <p>Enter lengths from top row to bottom row, space-separated (e.g. <code>2 3 5 5</code>)</p>
                 <div class="manual-input-row">
-                    <input id="manualInput" placeholder="e.g. 3 5 8 8" />
+                    <input id="manualInput" placeholder="e.g. 2 3 5 5" />
                     <button id="setManualBtn">Use Board</button>
                 </div>
             </details>
@@ -47,7 +47,7 @@
     </main>
 
     <footer>
-        <small>ChampChomp runs entirely in this panel.</small>
+        <small>ChampChomp is running...</small>
     </footer>
 
     <script src="popup.js"></script>

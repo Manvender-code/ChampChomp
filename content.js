@@ -1,17 +1,15 @@
-// content.js — simple robust parser for UCLA Chomp page
 (function () {
     const BLANK_RE = /blank/i;
 
-    // Count filled cells in one row: left → right, stop at blank
     function countRowSquares(tr) {
         const tds = Array.from(tr.querySelectorAll('td'));
         let count = 0;
         for (const td of tds) {
             const img = td.querySelector('img');
-            if (!img) break;                         // no image at all
+            if (!img) break;
             const src = img.getAttribute('src') || '';
-            if (BLANK_RE.test(src)) break;           // stop at first blank.gif
-            count++;                                 // brown.jpeg or poison ⇒ filled
+            if (BLANK_RE.test(src)) break;
+            count++;
         }
         return count;
     }
@@ -35,10 +33,8 @@
         const trs = Array.from(table.querySelectorAll('tr'));
         if (!trs.length) return null;
 
-        // Just take rows in DOM order (top → bottom)
         const counts = trs.map(countRowSquares);
 
-        // Limit to 4 rows for the DP table (pad with zeros at top if fewer)
         let normalized = counts.slice(0, 4);
         while (normalized.length < 4) normalized.unshift(0);
 
