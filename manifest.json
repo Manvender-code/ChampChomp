@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "ChampChomp",
+    "version": "1.0.0",
+    "description": "A hint provider extension for a standard 4*7 Champ Game",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://www.math.ucla.edu/*"
+    ],
+    "action": {
+        "default_title": "ChampChomp",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.math.ucla.edu/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_idle",
+            "all_frames": true
+        }
+    ]
+}

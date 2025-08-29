@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ChampChomp</title>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <header>
+        <div class="title">🏆 ChampChomp</div>
+        <div class="byline">made by Manvender</div>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>Game Rules (Quick)</h2>
+            <ol>
+                <li>The board is chocolate; the top-left square is poison.</li>
+                <li>When you chomp a block, it and all blocks to its right and below disappear.</li>
+                <li>Whoever is forced to eat the poison loses.</li>
+            </ol>
+        </section>
+
+        <section class="card">
+            <h2>Board Analyzer</h2>
+            <p class="muted">Detected rows (top to bottom):</p>
+            <div id="rowsView" class="rows-view">—</div>
+
+            <div class="button-row">
+                <button id="refreshBtn">↻ Refresh</button>
+                <button id="getHintBtn" class="primary">💡 Get Hint</button>
+            </div>
+
+            <div id="result" class="result"></div>
+
+            <details class="manual">
+                <summary>Board not detected? Enter manually.</summary>
+                <p>Enter lengths from top row to bottom row, space-separated (e.g. <code>3 5 8 8</code>)</p>
+                <div class="manual-input-row">
+                    <input id="manualInput" placeholder="e.g. 3 5 8 8" />
+                    <button id="setManualBtn">Use Board</button>
+                </div>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <small>ChampChomp runs entirely in this panel.</small>
+    </footer>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
