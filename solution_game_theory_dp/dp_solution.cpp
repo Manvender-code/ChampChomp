@@ -1,17 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using pos = pair<int, int>;
-map<vector<int>, pair<int, pos>> dp;
+using pp = pair<int, int>;
+map<vector<int>, pair<int, pp>> dp;
 
-pair<int, pos> solve(vector<int> state)
+pair<int, pp> solve(vector<int> state)
 {
     if (dp.find(state) != dp.end())
         return dp[state];
 
     int n = state.size();
     int is_win_state = 0;
-    pos win_move = {-1, -1};
+    pp win_move = {-1, -1};
 
     for (int row = 0; row < n; row++)
     {
